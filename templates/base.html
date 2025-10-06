@@ -1,0 +1,36 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "Flask Exam App" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav class="nav">
+    <a href="{{ url_for('index') }}">Главная</a>
+    {% if current_user.is_authenticated %}
+      <a href="{{ url_for('dashboard') }}">Личный кабинет</a>
+      <a href="{{ url_for('logout') }}">Выйти</a>
+      <span class="hello">Привет, {{ current_user.name }}!</span>
+    {% else %}
+      <a href="{{ url_for('login') }}">Войти</a>
+      <a href="{{ url_for('register') }}">Регистрация</a>
+    {% endif %}
+  </nav>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash">
+        {% for category, msg in messages %}
+          <div class="flash-item {{ category }}">{{ msg }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

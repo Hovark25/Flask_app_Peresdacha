@@ -1,0 +1,8 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Личный кабинет</h2>
+<p>Вы вошли как <strong>{{ name }}</strong>. Это защищённая страница (требует аутентификации)</p>
+
+<img src="{{ url_for('static', filename='img/login.png') }}" alt="Логин" height="150">
+{% endblock %}
